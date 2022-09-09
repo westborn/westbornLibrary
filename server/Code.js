@@ -1,3 +1,13 @@
+/** Westborn Library code
+    A collction of utility functions that can be used in Apps Script projects
+    Tries to use JSDOC to document the functions
+*/
+
+/**
+ *
+ * @param {*} form - Google Form object
+ * @returns URL of sheet in rresponse spreadsheet OR null
+ */
 function getFormDestinationSheet(form) {
   const form_id = form.getId()
   try {
@@ -418,7 +428,7 @@ function getPreviousFridayTimestamp(date) {
  * @param {string} text
  * @returns {string} text with HTML removed
  */
-const stripHTML = (text) => {
+function stripHTML(text) {
   return text
     .replace(/(<([^>]+)>)/gi, '')
     .replace(/&nbsp;/g, ' ')
@@ -431,12 +441,12 @@ const stripHTML = (text) => {
  * @param {string} subject_line to search for draft message
  * @return {object} containing the subject, plain and html message body and attachments
  */
-function getGmailTemplateFromDrafts_(subject_line) {
+function getGmailTemplateFromDrafts(subject_line) {
   try {
     // get drafts
     const drafts = GmailApp.getDrafts()
     // filter the drafts that match subject line
-    const draft = drafts.filter(subjectFilter_(subject_line))[0]
+    const draft = drafts.filter(subjectFilter(subject_line))[0]
     // get the message object
     const msg = draft.getMessage()
     // getting attachments so they can be included in the merge
@@ -448,17 +458,17 @@ function getGmailTemplateFromDrafts_(subject_line) {
   } catch (e) {
     throw new Error("Oops - can't find Gmail draft")
   }
+}
 
-  /**
-   * Filter draft objects with the matching subject linemessage by matching the subject line.
-   * @param {string} subject_line to search for draft message
-   * @return {object} GmailDraft object
-   */
-  function subjectFilter_(subject_line) {
-    return function (element) {
-      if (element.getMessage().getSubject() === subject_line) {
-        return element
-      }
+/**
+ * Filter draft objects with the matching subject linemessage by matching the subject line.
+ * @param {string} subject_line to search for draft message
+ * @return {object} GmailDraft object
+ */
+function subjectFilter(subject_line) {
+  return function (element) {
+    if (element.getMessage().getSubject() === subject_line) {
+      return element
     }
   }
 }
