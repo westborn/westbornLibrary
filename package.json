@@ -1,0 +1,11 @@
+{
+  "name": "westborn-library",
+  "version": "0.0.1",
+  "scripts": {
+    "push": "clasp push"
+  },
+  "devDependencies": {
+    "@types/google-apps-script": "^1.0.53"
+  },
+  "type": "module"
+}
